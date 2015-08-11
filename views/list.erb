@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Home FTP on Sinatra</title>
+</head>
+<body>
+<h2>Files list :<h2>
+    <table>
+      <tr>
+        <th>Download</th>
+        <th>Loaded at</th>
+        <th>Delete</th>
+      </tr>
+      <% @files.each do |file| %>
+        <tr>
+          <td><a href="/download/<%= file.id %>" title="<%=file.filename%>"><%= file.filename %></a></td>
+          <td><%= file.created_at.strftime(" %H:%M:%S %d %b ") %></td>
+          <td><a href="/delete/<%= file.id %>" title="Delete file">Delete</a></td>
+        </tr>
+      <% end %>
+      <tr>
+        <td colspan="3" align="right"><a href="/all/delete" title="Delete all files">Delete all</a></td>
+      </tr>
+    </table>
+    <h3>Add file</h3>
+    <form action="/submit_file" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
+      <input type="file" name="file"/><br>
+      <input type="submit" value="Submit"/>
+    </form>
+</body>
+</html>
